@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+# kind: represent the type of object we want to make eg pod, service
+metadata:
+  name: client-node-port
+spec:
+  type: NodePort
+  ports:
+    - port: 3050
+      # if another pod in our node needs to talk to this client-pod.
+      targetPort: 3000
+      # this is exposed to the world for traffic
+      nodePort: 31515
+      # used to test if the container is running inside the multi-client pod
+      # a number between 30000 - 32767.  If you do not specify, one between the numbers will be specified.
+  selector:
+    component: web
