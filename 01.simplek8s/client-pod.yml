@@ -8,7 +8,7 @@ metadata:
 spec:
   containers:
     - name: client
-      image: stephengrider/multi-client
+      image: bixoloo/multi-client
       ports:
         - containerPort: 3000
       resources:
