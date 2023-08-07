@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-deployment
+
+spec:
+  replicas: 1
+  # replica is number of pods this deployment should make here 1.
+  selector:
+    # deployment finds components with labels of here component:web
+    matchLabels:
+      component: web
+  template:
+    # lists the characteristic of every single pod created by this deployment
+    metadata:
+      labels:
+        component: web
+    spec:
+      containers:
+        - name: client
+          image: bixoloo/multi-client
+          ports:
+            - containerPort: 3000
+          resources:
+          limits:
+            memory: 521Mi
+            cpu: '1'
+          requests:
+            memory: 256Mi
+            cpu: '0.2'
