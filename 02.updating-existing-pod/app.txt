@@ -72,5 +72,72 @@ Declarative deployments
 -> our container setup should look like this, make it happen
 
 
+K8S OBJECT TYPES 
+1. Pod -> runs one or more closely related containers.
+2. Services -> sets up networking in K8s cluster 
+3. Deployment -> maintains sets of identical pods, ensuring that they have the correct 
+    config and that the right number exists.
+    Ensures every pod is always in runnable state i.e not crashing or dead 
+    Similar to a pod 
+    
+
+Difference between Pods and Deployment 
+1. pods run single set of containers while deployment run set of identical pods(one or more)
+2. pods are good for one off dev purposes while deployment is good for both dev and production.
+3. pods are rarely used in production while deployment are for production 
+4. deployment monitor state of each pod, updating it where necessary
+5. deployment contain pod template that is contains configuration on how each 
+    pod in the deployment will look like. Has containers, name, port, image etc 
+
+
+REMOVE EXISTING OBJECT 
+Use the configuration file used to create the object 
+=> kubectl delete -f <config file> 
+=> kubectl delete -f client-pod.yml 
+=> pod 'client-pod' deleted 
+
+CREATE AN OBJECT 
+Use the configuratio file to create an object 
+=> kubectl apply -f client/client-deployment.yml 
+=> check status with kubectl get pods 
+=> check status of the deployment by using kubectl get deployments 
+
+SERVICES OBJECT
+NB: on local marchine, minikube runs on its own ip address.  Does not rely on local host. 
+NB: to get the local ip, use minikube ip, it will return the ip set for the local minikube instance. 
+=> Why do we need services? 
+- every single created gets an ip address assigned to it. 
+- it is internal to virtual machine 
+- when a pod is delete, the ip address will be deleted too. 
+- when a pod is deleted, the ip is gone too. This is where the service object come in 
+- it watches every pod that matches its 'selector' then route traffic to it 
+- it routes traffic to pods that matches its selector 
+
+UPDATING A NEW VERSION OF IMAGE 
+- in kubernetes, convincing a deployment to use new docker image is not easy.
+- if there is no changes on the configuration file, kubectl will flatly refuse to change the configs. 
+=> Solutions 
+1. Delete pods, this is a bad idea since the master will try to recreate them 
+2. Tag docker images with versions, dockeruser/repo:v1.0.0; specify the versions inside config files 
+    When config file is changed with the image version, then config file will be accepted by kubectl 
+    Downside, adds extra step to deployment process. 
+3. Use 'imperative command' to update image version for the deployment to use.
+    Downside is, it is using imperative commands 
+    => use this command to update the deployment 
+    => kubectl set image <object type> / <object name> <container name> = <new image to use>
+    => kubectl set image deployment/client-deployment client=bixoloo/multi-client:v1.0.1
+    => returns image updated 
+
+
+RECONFIGURE DOCKER CLI TO CONNECT WITH DOCKER IN VIRTUAL MARCHINE 
+-> run eval $(minikube docker-env) - this will connect to the virtual machine docker .
+-> only configures the current terminal window.  It is temporary.
+-> assist in checking the docker images running on the virtual machine. 
+
+**** Why ****
+-> it used to do the same debugging techniques used in docker cli 
+-> it used to manually 'kill' containers to test k8s ability to 'self heal'
+-> it is used to delete cached images in the node; use docker system prune -a 
+
 
 

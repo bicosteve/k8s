@@ -1,7 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
+#this is unique
 metadata:
+  #this is unique
   name: client-deployment
+  namespace: k8s-tuts
 
 spec:
   replicas: 1
