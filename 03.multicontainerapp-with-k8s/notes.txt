@@ -1,0 +1,17 @@
+1. What is ClusterIP
+-> ClusterIP is part of Services object.
+-> Services object sets up a networking in a kubernetes cluster. 
+-> Services has the following;
+    a) ClusterIP - exposes a set of pods to other ojects in the cluster 
+    b) NodePort - exposes a set of pods to the outside world. ONLY GOOD FOR DEV PURPOSES
+    c) LoadBalancer
+    d) Ingress
+
+
+
+2. Namespaces;
+=> checking namespaces kubectl get namespaces
+=> creating namespace kubectl create namespace complex-app
+=> getting deployments from  a namespace; kubectl get deployments -n=complex-app 
+=> getting pods from a namespace; kubectl get pods -n=complex-app 
+=> spec customizes how each pod runs in the cluster
