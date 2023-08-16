@@ -18,3 +18,14 @@ spec:
           image: postgres
           ports:
             - containerPort: 5432
+          #how the access storage will be used
+          volumeMounts:
+            - name: postgres-storage
+              mountPath: /var/lib/postgresql/data
+              subPath: postgres
+      #persistent volume claim sections
+      #this requests kubernetes to provide storage set in the persisten volume claim config file
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: db-persistent-volume-claim
