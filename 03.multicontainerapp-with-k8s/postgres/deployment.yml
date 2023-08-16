@@ -23,6 +23,14 @@ spec:
             - name: postgres-storage
               mountPath: /var/lib/postgresql/data
               subPath: postgres
+          #postgres password settings
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD
+
       #persistent volume claim sections
       #this requests kubernetes to provide storage set in the persisten volume claim config file
       volumes:

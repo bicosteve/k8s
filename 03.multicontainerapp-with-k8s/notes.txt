@@ -52,8 +52,15 @@ Volumes:
     - you can choose to rely on default or you can specify other options. 
     - to check for options for volumes, run kubectl get storageclass 
     - it will return options for persistent volumes available 
-    
+
     NB: => persistent volume claim will be attached to postgres deployment in the config
+
+=> Secret Object 
+- it securely stores a piece of information in the cluster, such as db password.
+- secrets are imparatively created and manually created in any environment 
+- create a secret with 
+=> kubectl create secret generic <secret name> --from-literal key=value 
+=> kubectl create secret generic pgpassword --from-literal PGPASSWORD=1234
 
 
 
