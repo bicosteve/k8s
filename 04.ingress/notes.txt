@@ -1,0 +1,80 @@
+1. What is ClusterIP
+-> ClusterIP is part of Services object.
+-> Services object sets up a networking in a kubernetes cluster. 
+-> Services has the following;
+    a) ClusterIP - exposes a set of pods to other ojects in the cluster 
+    b) NodePort - exposes a set of pods to the outside world. ONLY GOOD FOR DEV PURPOSES
+    c) LoadBalancer
+    d) Ingress
+
+
+
+2. Namespaces;
+=> checking namespaces kubectl get namespaces
+=> creating namespace kubectl create namespace complex-app
+=> getting deployments from  a namespace; kubectl get deployments -n=complex-app 
+=> getting pods from a namespace; kubectl get pods -n=complex-app 
+=> spec customizes how each pod runs in the cluster
+
+
+3. Need for Volumes
+PVC -> Persistent Volume Claim 
+Volumes: 
+- When a pod crashes, everything is lost.
+- new pod will be created and no data will be available.
+- volumes assist in solving this problem.
+=> Volume  
+    in k8s 'Volume'is a particular type of object just like Service or Deployment that allows 
+    a container to store data at the pod level. 
+    there are other two data storage objects that is Persistent Volume Claim and Persistent Volume.
+    Volume is tied to a pod and if the pod dies, the volume dies too. 
+
+=> Persistent Volume 
+    it is long term durable storage not tied to pod or container 
+    if the pod dies, the volume will be attached to the recreated pod 
+
+=> Persistent Volume Claim 
+    This is an advertisement.  You can choose any amount of storage space option you want.
+    For storage specified, if it is available, kubernetes will use it or it will create space and 
+    attach it to the pod.
+    For specified storage, that is called 'statistically provisioned persistent volume' while if it 
+    creates it on the fly, 'dynamically provisioned persistent volume' .
+
+    NB: Explanation;
+    - volume claim is not storage but rather it is attached to a pod 
+    - kubernetes will find a storage eg a slice of your hard drive which meet the requirements on spec field.
+    - Access Modes
+    a) ReadWriteOnce - instance of storage that can be used by a single node at a time. 
+    b) ReadOnlyMany - instance of storage that can be read by many nodes. 
+    c) ReadWriteMany - instance of storage than can be read and written to by many nodes 
+
+    NB: Storage Options 
+    - you can choose to rely on default or you can specify other options. 
+    - to check for options for volumes, run kubectl get storageclass 
+    - it will return options for persistent volumes available 
+
+    NB: => persistent volume claim will be attached to postgres deployment in the config
+
+=> Secret Object 
+- it securely stores a piece of information in the cluster, such as db password.
+- secrets are imparatively created and manually created in any environment 
+- create a secret with 
+=> kubectl create secret generic <secret name> --from-literal key=value 
+=> kubectl create secret generic pgpassword --from-literal PGPASSWORD=1234
+
+
+=> LoadBalancer Service 
+- it is the legacy way of getting network traffic into a cluster 
+- LoadBalancer allows for access of one specific pod inside your cluster. 
+- when you use a LoadBalancer, k8s reaches your cloud provider and uses their 'LoadBalancer'
+- 
+
+=> Ingress Service 
+- There are various types of ingress 
+- we are using ingress-nginx which is community led project: github.com/kubernetes/ingress-nginx 
+- there is also kubernetes-ingress: github.com/nginxinc/kubernetes-ingress 
+- setup of ingress-nginx changes depending on your environment (local,GC,AWS,Azure)
+- 
+
+
+
