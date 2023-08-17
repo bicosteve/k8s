@@ -76,5 +76,8 @@ Volumes:
 - setup of ingress-nginx changes depending on your environment (local,GC,AWS,Azure)
 - 
 
+# How Ingress Works 
+- 
+
 
 
