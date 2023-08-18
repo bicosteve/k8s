@@ -12,3 +12,9 @@ before_install:
   # install and update kubectl inside travis environment
   - gcloud auth activate-service-acount --key-file service-account.json
   # tells google cloud who we are and set credentials inside a file called service-account.json
+  - gcloud config set project multi-k8s-396215
+  #which project to use to run
+  - gcloud config set compute/zone me-central1-a
+  # setting the compute zone
+  - gcloud container clusters get-credentials k8scluster
+  # sets which k8 cluster to use in gcp
