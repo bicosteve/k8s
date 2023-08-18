@@ -1,0 +1,21 @@
+TRAVIS CONFIG FIILE STEPS
+1. install ggogle cloud sdk cli 
+2. configure the SDK without Google Cloud auth info 
+3. Login to Docker CLI
+4. Build the 'test' version of multi-client 
+5. Run tests 
+6. If tests are successful, run script to deploy new images 
+7. Build all the images, tag each one, push to docker hub 
+8. Apply all configs in the k8s folders
+9. Imperatively set latest images on each deployment 
+
+
+2. Installing Travis CI 
+- docker run -it -v $(pwd):/app ruby:2.3 sh 
+- gem install travis --no-rdoc --no-ri 
+- gem install travis 
+- travis login 
+- copy json file into the volumed directory so that we can use it in the container 
+- travis encrypt-file service-account.json 
+- encrypt the file with travis encrypt-file 'file.json' - r bicosteve/k8s
+- travis encrypt-file 'file.json' - r bicosteve/k8s
