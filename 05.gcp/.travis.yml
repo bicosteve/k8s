@@ -1,6 +1,13 @@
 sudo: required
 services:
   - docker
+env:
+  global:
+    - GIT_SHA=$(git rev-parse HEAD)
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+    # disable gcloud prompts in cli
+    - PGPASSWORD="$PGPASSWORD"
+    #set postgres password
 before_install:
   - openssl <travis-encryption> -d
   - curl https://sdk.cloud.google.com | bash > /dev/null;
@@ -28,3 +35,9 @@ before_install:
 
 script:
   - docker run bixoloo/react-test npm run test -- --coverage
+
+deploy:
+  provider: script
+  script: bash ./deploy-script/deploy.sh
+  on:
+    branch: main
