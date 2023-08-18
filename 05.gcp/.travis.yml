@@ -25,3 +25,6 @@ before_install:
   # Build Images
   - docker build -t bixoloo/react-test -f ./client/Dockerfile.dev ./client
   # the file should come from client dir which has your project with Dockerfile.dev ./client is build context
+
+script:
+  - docker run bixoloo/react-test npm run test -- --coverage
