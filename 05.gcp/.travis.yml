@@ -18,3 +18,10 @@ before_install:
   # setting the compute zone
   - gcloud container clusters get-credentials k8scluster
   # sets which k8 cluster to use in gcp
+
+  # Docker  Login
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+  # Build Images
+  - docker build -t bixoloo/react-test -f ./client/Dockerfile.dev ./client
+  # the file should come from client dir which has your project with Dockerfile.dev ./client is build context
