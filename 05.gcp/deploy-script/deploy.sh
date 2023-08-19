@@ -75,3 +75,5 @@ kubectl set image worker/deployments/deployment.yml workerr=bixoloo/multi-worker
 # kubectl create clusterrolebinding tiller-cluster-rule --clusterrole=cluster-admin --serviceaccount=kube-system:tiller
 
 #ingress set up for gke
+
+# NB: Read more on ingress-nginx
