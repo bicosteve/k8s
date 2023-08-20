@@ -1,0 +1,20 @@
+ingress-nginx
+- send traffic from internet to your cluster
+- ingress controller acts as a proxy to your services 
+- ingress-controller evaluates all the rules set on your Ingress manifest and manages redirections.
+- there are many different third party implementations
+- example is K8s Nginx Ingress controller
+- consider the env where the cluster is running
+- for cloud services, they have Cloud Load Balancer
+- the traffic will first hit the 'Cloud Load Balancer' then hit 'Ingress Controller Pod' .
+- with cloud, you do not have to implement load balancer by yourself 
+- for bare metal, you need a 'Proxy Server' which can be a hardware or software.
+- this is a separate sever with public ip address and open port 
+- it is the entry point to your cluster 
+- it will then access Ingress Controller which will then check Ingress rules and redirect traffic 
+- none of the cluster will be accessible to the public 
+- 
+
+Minikube 
+1. install ingress controller in minikube by 'minikube addons enable ingress'. 
+    Automatically starts k8s implementation of ingress controller.
